@@ -13,3 +13,5 @@ CREATE TABLE IF NOT EXISTS animals (
 	weight_kg NUMERIC,
 	PRIMARY KEY(id)
 );
+
+ALTER TABLE animals ADD species VARCHAR(250);
