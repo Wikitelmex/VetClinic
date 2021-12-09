@@ -71,9 +71,15 @@ CREATE TABLE IF NOT EXISTS specializations (
 	id_vet INT NOT NULL,
 	id_species INT NOT NULL
 );
+ALTER TABLE specializations ADD CONSTRAINT specializations_vet FOREIGN KEY (id_vet) REFERENCES vets (id);
+ALTER TABLE specializations ADD CONSTRAINT specializations_species FOREIGN KEY (id_species) REFERENCES species (id);
 
 CREATE TABLE IF NOT EXISTS visits (
-	id_animals INT,
-	id_vets INT,
+	id_animals INT NOT NULL,
+	id_vets INT NOT NULL,
 	visit_date DATE DEFAULT now()
 );
+ALTER TABLE visits ADD CONSTRAINT visits_vet FOREIGN KEY (id_vets) REFERENCES vets (id);
+ALTER TABLE visits ADD CONSTRAINT visits_animals FOREIGN KEY (id_animals) REFERENCES animals (id);
+
+
