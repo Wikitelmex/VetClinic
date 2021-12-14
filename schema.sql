@@ -58,3 +58,28 @@ ALTER TABLE animals ADD species_id INT;
 ALTER TABLE animals ADD CONSTRAINT manyAnimals_oneSpecies FOREIGN KEY (species_id) REFERENCES species (id);
 ALTER TABLE animals ADD owner_id INT;
 ALTER TABLE animals ADD CONSTRAINT manyAnimals_oneOwner FOREIGN KEY (owner_id) REFERENCES owners (id);
+
+CREATE TABLE IF NOT EXISTS vets (
+	id INT GENERATED ALWAYS AS IDENTITY,
+	name VARCHAR(255) NOT NULL,
+	age INT,
+	date_of_graduation DATE DEFAULT now(),
+	PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS specializations (
+	id_vet INT NOT NULL,
+	id_species INT NOT NULL
+);
+ALTER TABLE specializations ADD CONSTRAINT specializations_vet FOREIGN KEY (id_vet) REFERENCES vets (id);
+ALTER TABLE specializations ADD CONSTRAINT specializations_species FOREIGN KEY (id_species) REFERENCES species (id);
+
+CREATE TABLE IF NOT EXISTS visits (
+	id_animals INT NOT NULL,
+	id_vets INT NOT NULL,
+	visit_date DATE DEFAULT now()
+);
+ALTER TABLE visits ADD CONSTRAINT visits_vet FOREIGN KEY (id_vets) REFERENCES vets (id);
+ALTER TABLE visits ADD CONSTRAINT visits_animals FOREIGN KEY (id_animals) REFERENCES animals (id);
+
+
